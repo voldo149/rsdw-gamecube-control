@@ -55,9 +55,9 @@ return {
     -- Construcción: colocar (QuickInteract) -> A
     { action = "IA_Building_QuickInteract", from = "Gamepad_FaceButton_Left", to = "Gamepad_FaceButton_Bottom" },
 
-    -- Y: radial rápido INSTANTÁNEO (abre al presionar, se apunta con el stick derecho, se cierra al soltar)
-    { action = "IA_QuickAccessRadial",      from = "Gamepad_LeftShoulder", to = "Gamepad_FaceButton_Top" },
-    { action = "IA_QuickAccessRadialClose", from = "Gamepad_LeftShoulder", to = "Gamepad_FaceButton_Top" },
+    -- Z: radial rápido INSTANTÁNEO (abre al presionar, se apunta con el stick derecho, se cierra al soltar)
+    { action = "IA_QuickAccessRadial",      from = "Gamepad_LeftShoulder", to = "Gamepad_RightShoulder" },
+    { action = "IA_QuickAccessRadialClose", from = "Gamepad_LeftShoulder", to = "Gamepad_RightShoulder" },
 
     -- B: esquivar (tap, ya está en B de fábrica) / correr (hold)
     { action = "IA_Player_Sprint",     from = "Gamepad_LeftThumbstick",    to = "Gamepad_FaceButton_Right" },
@@ -65,12 +65,15 @@ return {
     -- Pasa al hold de D-pad izquierda (ver combos)
     { action = "IA_Player_Stealth",    from = "Gamepad_FaceButton_Right",  to = "Gamepad_DPad_Left" },
 
-    -- X: brincar
-    { action = "IA_Player_Jump",       from = "Gamepad_FaceButton_Bottom", to = "Gamepad_FaceButton_Left" },
+    -- Y: brincar
+    { action = "IA_Player_Jump",       from = "Gamepad_FaceButton_Bottom", to = "Gamepad_FaceButton_Top" },
 
-    -- Z: atacar (tap) / menú de hechizos (hold)
-    { action = "IA_SpellMenu",         from = "Gamepad_FaceButton_Top",    to = "Gamepad_RightShoulder" },
-    { action = "IA_SpellMenuDummy",    from = "Gamepad_FaceButton_Top",    to = "Gamepad_RightShoulder" },
+    -- X: atacar (tap) / menú de hechizos (hold)
+    { action = "IA_PrimaryAction",     from = "Gamepad_RightShoulder",     to = "Gamepad_FaceButton_Left" },
+    -- Atacar con armas montables (comparte botón de perfil con atacar)
+    { action = "IA_PilotablePrimaryAction", from = "Gamepad_RightShoulder", to = "Gamepad_FaceButton_Left" },
+    { action = "IA_SpellMenu",         from = "Gamepad_FaceButton_Top",    to = "Gamepad_FaceButton_Left" },
+    { action = "IA_SpellMenuDummy",    from = "Gamepad_FaceButton_Top",    to = "Gamepad_FaceButton_Left" },
     -- Aviso de "ataque especial" que el juego tenía en RB y se quedaba con la Z: a L3 (el GC no lo tiene)
     { action = "IA_SpecialActionDummy", from = "Gamepad_RightShoulder",    to = "Gamepad_LeftThumbstick" },
 
@@ -114,12 +117,12 @@ return {
   -- press = acción que se activa al instante al presionar (sin tap/hold)
   -- one_shot = true -> el hold se activa UNA vez (menús, montar); false -> sigue activo (correr)
   combos = {
-    -- Y: radial al instante
-    { key = "Gamepad_FaceButton_Top",   press = "IA_QuickAccessRadial" },
+    -- Z: radial al instante
+    { key = "Gamepad_RightShoulder",    press = "IA_QuickAccessRadial" },
     -- B: esquivar / correr
     { key = "Gamepad_FaceButton_Right", tap = "IA_Player_Evade",  hold = "IA_Player_Sprint", tap_time = 0.25, hold_time = 0.25, one_shot = true },
-    -- Z: atacar / hechizos (atacar sí espera al tap, así que mantener NO ataca)
-    { key = "Gamepad_RightShoulder",    tap = "IA_PrimaryAction", hold = "IA_SpellMenu",      tap_time = 0.25, hold_time = 0.30, one_shot = true },
+    -- X: atacar / hechizos (atacar sí espera al tap, así que mantener NO ataca)
+    { key = "Gamepad_FaceButton_Left",  tap = "IA_PrimaryAction", hold = "IA_SpellMenu",      tap_time = 0.25, hold_time = 0.30, one_shot = true },
     -- D-pad izquierda: munición / sigilo
     { key = "Gamepad_DPad_Left",       tap = "IA_AmmoSwapLeft", hold = "IA_Player_Stealth",          tap_time = 0.40, hold_time = 0.40, one_shot = true },
     -- D-pad derecha: munición / montar
