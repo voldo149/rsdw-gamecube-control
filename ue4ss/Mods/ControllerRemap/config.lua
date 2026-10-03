@@ -89,8 +89,10 @@ return {
     { action = "IA_UI_InventoryTabRight", from = "Gamepad_RightShoulder",  to = "Gamepad_RightStick_Right" },
     { action = "IA_PlayerInventory_Sort", from = "Gamepad_LeftThumbstick", to = "Gamepad_RightShoulder" },
 
-    -- Menú de construcción: pestaña izquierda (LB) también en Z (ver combo: tap = derecha, hold = izquierda)
-    { action = "IA_UI_GenericTabLeft", context = "BuildingUI", from = "Gamepad_LeftShoulder", to = "Gamepad_RightShoulder" },
+    -- Menú de construcción (solo el menú, IMC_BuildingUI): pestañas con L / R.
+    -- Rotar la pieza al colocarla es otro contexto (IMC_BuildingMode, ejes de L/R) y no se toca.
+    { action = "IA_UI_GenericTabLeft",  context = "BuildingUI", from = "Gamepad_LeftShoulder",  to = "Gamepad_LeftTrigger" },
+    { action = "IA_UI_GenericTabRight", context = "BuildingUI", from = "Gamepad_RightShoulder", to = "Gamepad_RightTrigger" },
 
     -- Cofres/inventario: cambiar de panel -> L
     { action = "IA_Inventory_SwitchPanel",  from = "Gamepad_RightThumbstick", to = "Gamepad_LeftTrigger" },
@@ -127,8 +129,6 @@ return {
     { key = "Gamepad_DPad_Left",       tap = "IA_AmmoSwapLeft", hold = "IA_Player_Stealth",          tap_time = 0.40, hold_time = 0.40, one_shot = true },
     -- D-pad derecha: munición / montar
     { key = "Gamepad_DPad_Right",       tap = "IA_AmmoSwapRight", hold = "IA_Mount",          tap_time = 0.40, hold_time = 0.40, one_shot = true },
-    -- Menú de construcción: Z tap = pestaña derecha, Z hold = pestaña izquierda (solo en ese menú)
-    { key = "Gamepad_RightShoulder", context = "BuildingUI", tap = "IA_UI_GenericTabRight", hold = "IA_UI_GenericTabLeft", tap_time = 0.30, hold_time = 0.30, one_shot = true },
     -- +: menú / pausa
     { key = "Gamepad_Special_Right",    tap = "IA_TopBarMenu",    hold = "IA_Pause",          tap_time = 0.40, hold_time = 0.40, one_shot = true },
   },
