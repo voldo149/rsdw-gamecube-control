@@ -59,8 +59,11 @@ return {
     { action = "IA_QuickAccessRadial",      from = "Gamepad_LeftShoulder", to = "Gamepad_FaceButton_Top" },
     { action = "IA_QuickAccessRadialClose", from = "Gamepad_LeftShoulder", to = "Gamepad_FaceButton_Top" },
 
-    -- B: esquivar (tap) / sigilo (hold) — los dos ya están en B de fábrica, no necesitan regla
+    -- B: esquivar (tap, ya está en B de fábrica) / correr (hold)
     { action = "IA_Player_Sprint",     from = "Gamepad_LeftThumbstick",    to = "Gamepad_FaceButton_Right" },
+    -- Sigilo: de fábrica está en B; se saca de ahí para que el hold de B sea solo correr.
+    -- Pasa al hold de D-pad izquierda (ver combos)
+    { action = "IA_Player_Stealth",    from = "Gamepad_FaceButton_Right",  to = "Gamepad_DPad_Left" },
 
     -- X: brincar
     { action = "IA_Player_Jump",       from = "Gamepad_FaceButton_Bottom", to = "Gamepad_FaceButton_Left" },
@@ -113,7 +116,7 @@ return {
   combos = {
     -- Y: radial al instante
     { key = "Gamepad_FaceButton_Top",   press = "IA_QuickAccessRadial" },
-    -- B: esquivar / sigilo
+    -- B: esquivar / correr
     { key = "Gamepad_FaceButton_Right", tap = "IA_Player_Evade",  hold = "IA_Player_Sprint", tap_time = 0.25, hold_time = 0.25, one_shot = true },
     -- Z: atacar / hechizos (atacar sí espera al tap, así que mantener NO ataca)
     { key = "Gamepad_RightShoulder",    tap = "IA_PrimaryAction", hold = "IA_SpellMenu",      tap_time = 0.25, hold_time = 0.30, one_shot = true },
@@ -128,8 +131,10 @@ return {
   },
 
   -- Acciones que NO se "comen" su botón: lo dejan pasar a otros controles activos.
-  -- Esquivar/sigilo están en B; así la B también llega a "levantarse de la cama".
-  no_consume = { "IA_Player_Evade", "IA_Player_Stealth" },
+  -- Esquivar está en B; así la B también llega a "levantarse de la cama".
+  -- Munición izquierda (IMC_Combat) y sigilo (IMC_Movement) comparten D-pad izquierda en
+  -- contextos distintos: ninguno se "come" el botón, para que el hold llegue al sigilo.
+  no_consume = { "IA_Player_Evade", "IA_Player_Stealth", "IA_AmmoSwapLeft" },
 
   -- Contextos que NUNCA se tocan (coincidencia por texto, sin mayúsculas).
   exclude_contexts = { "FrontEnd", "Debug" },
