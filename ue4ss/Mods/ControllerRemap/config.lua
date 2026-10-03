@@ -41,6 +41,7 @@ return {
   -- Esquema de zigis (control GameCube): A=Bottom, B=Right, X=Left, Y=Top, Z=RightShoulder, +=Special_Right
   rules = {
     -- Cama: levantarse -> B (si falla, cambia "to" a "Gamepad_DPad_Left", que sí funcionó)
+    -- Para que la B llegue aquí, esquivar y correr (también en B) están en no_consume.
     -- detach = no seguir el botón compartido de "interactuar"
     { action = "IA_Interact", context = "Resting", from = "Gamepad_FaceButton_Left", to = "Gamepad_FaceButton_Right", detach = true },
 
@@ -134,10 +135,10 @@ return {
   },
 
   -- Acciones que NO se "comen" su botón: lo dejan pasar a otros controles activos.
-  -- Esquivar está en B; así la B también llega a "levantarse de la cama".
+  -- Esquivar y correr están en B; así la B también llega a "levantarse de la cama".
   -- Munición izquierda (IMC_Combat) y sigilo (IMC_Movement) comparten D-pad izquierda en
   -- contextos distintos: ninguno se "come" el botón, para que el hold llegue al sigilo.
-  no_consume = { "IA_Player_Evade", "IA_Player_Stealth", "IA_AmmoSwapLeft" },
+  no_consume = { "IA_Player_Evade", "IA_Player_Sprint", "IA_Player_Stealth", "IA_AmmoSwapLeft" },
 
   -- Contextos que NUNCA se tocan (coincidencia por texto, sin mayúsculas).
   exclude_contexts = { "FrontEnd", "Debug" },
