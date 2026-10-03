@@ -1,5 +1,6 @@
 # rsdw-gamecube-control
-\n**ControllerRemap** — RuneScape: Dragonwilds
+
+**ControllerRemap** — RuneScape: Dragonwilds
 
 Mod de UE4SS (Lua) para remapear el control por acción (`IA_*`) dentro de los
 Input Mapping Contexts del juego. Esquema actual: control de GameCube.
