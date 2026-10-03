@@ -1,0 +1,7 @@
+Prueba de botones — presiona cada botón de uno en uno, en orden:
+ 1. Gamepad_FaceButton_Bottom
+ 2. Gamepad_FaceButton_Right
+ 3. Gamepad_FaceButton_Left
+ 4. Gamepad_FaceButton_Top
+ 5. Gamepad_LeftTrigger
+ 6. Gamepad_RightTrigger
